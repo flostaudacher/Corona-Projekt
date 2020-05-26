@@ -3,24 +3,21 @@ import java.io.FileReader;
 import java.util.Scanner;
 
 public class Import {
- public static String [][] arr;
- public static int anzahlZeilen=4586;
- public static int anzahlSpalten=12;
- public static String filelocation= "E:\\Migration_data\\\\noe_pop_migration_background_2012_2019_lau2.dat";
- public static String InputLine = "";
-	
+	public static String [][] arr;
+	public static int anzahlZeilen;
+	public static int anzahlSpalten;
+	public static String filelocation= "E:\\Migration_data\\noe_pop_migration_background_2012_2019_lau3.dat";
+	public static String InputLine = "";
 	static void setup() {
+		getNumOfRowCol();
 		arr = new String [anzahlZeilen][anzahlSpalten];
-		
 		Scanner sc= null;
 		int Rowc = 0;
 		System.out.println("Array wird angelegt");
-		
 		try 
-		
 		{
 			sc= new Scanner (new BufferedReader(new FileReader(filelocation))); // file wird angelegt
-			
+
 			while (sc.hasNextLine()) {
 				InputLine= sc.nextLine();
 				String[] inArr = InputLine.split(";");
@@ -31,9 +28,7 @@ public class Import {
 			}
 		}catch (Exception e) {
 			System.out.println(e);
-		}
-		
-		
+		}	
 	}
 	public static void printArray() {
 		System.out.println("Array wird ausgegeben");
@@ -54,13 +49,11 @@ public class Import {
 			while (sc.hasNextLine()) {
 				InputLine=sc.nextLine();
 				String[] inArr = InputLine.split(";");
-				anzahlZeilen++;
-				anzahlSpalten = inArr.length;
+				Import.anzahlZeilen++;
+				Import.anzahlSpalten = inArr.length;
 			}
 		} catch (Exception e ) {
 			System.out.println(e);
 		}
-		
-		
 	}
 }
