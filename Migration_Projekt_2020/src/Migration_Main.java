@@ -3,7 +3,8 @@ public class Migration_Main {
 	
 	public static void main(String[] args) {
 		Import imp = new Import();
-		imp.printArray();
+		Import.printArray();
+		sqlConnection.ausgeben();;
 		Visualisierung.main(args);
 	}
 }
