@@ -2,10 +2,12 @@
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.HBox;
+import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 
 public class Visualisierung extends Application {
@@ -20,25 +22,24 @@ public class Visualisierung extends Application {
 		HBox root = new HBox();
 		Scene scene = new Scene(root, 1000, 700);
 
-		NumberAxis xAxis= new NumberAxis();
+		LogarithmicNumberAxis xAxis= new LogarithmicNumberAxis();
 		xAxis.setLabel("Ortsgröße/ Einwohnerzahl"); // Beschriftung der x Achse 
 
 		NumberAxis yAxis= new NumberAxis();
 		yAxis.setLabel("Migartionsanteil des Ortes in  %"); // Beschriftung der y Achse 
-
-		LineChart<Number, Number> lineChart = new LineChart<Number,Number>(xAxis,yAxis);
-		lineChart.setTitle("Kausalitätsdarstellung");
+		
+		AreaChart<Number, Number> areaChart = new AreaChart<Number,Number>(xAxis,yAxis);
+		//LineChart<Number, Number> areaChart = new LineChart<Number,Number>(xAxis,yAxis);
+		areaChart.setTitle("Kausalitätsdarstellung");
 
 		XYChart.Series<Number, Number> data = new XYChart.Series<>();
-
+		
+		data.setName("Werte des % Ausländeranteils bei jeweiliger Bevölkerung in Niederösterreich");
 		// ab hier wird die befüllung des Diagrammes Durchgeführt
 		Import.setup();
 		int stepsAVG=9;
-		int stepIndex=Import.anzahlZeilen/stepsAVG;
-
-
-		/*data.getData().add(new XYChart.Data<Number, Number>(getWert(Import.arr[1][8]),getWert(Import.arr[1][10]))); // erster Wert aus der Tabelle
-		for (int Rowc = 1; Rowc < Import.anzahlZeilen; Rowc=Rowc+5) {								// hier wird noch eine Lösung gesucht den Grahpen aussagekräftiger zu machen
+		data.getData().add(new XYChart.Data<Number, Number>(getWert(Import.arr[1][8]),getWert(Import.arr[1][10]))); // erster Wert aus der Tabelle
+		for (int Rowc = 1; Rowc < Import.anzahlZeilen + 1; Rowc=Rowc+5) {								// hier wird noch eine Lösung gesucht den Grahpen aussagekräftiger zu machen
 			float populationAVG=0;
 			float foreignPopulation=0;
 			for (int runV= 0;  runV <= stepsAVG; runV++) {
@@ -52,7 +53,8 @@ public class Visualisierung extends Application {
 			Number NumPop=(populationAVG);
 			Number percent=(foreignPopulation/populationAVG)*100;
 			data.getData().add(new XYChart.Data<Number, Number>(NumPop,percent));
-		}*/
+		}
+		
 		/*for (int i = 1; i <= stepsAVG; i++) {
 			float populationAVG=0;
 			float foreignPopulation=0;
@@ -62,7 +64,7 @@ public class Visualisierung extends Application {
 				foreignPopulation=foreignPopulation+getWert(Import.arr[Rowc][10]);
 				System.out.println("for : " + foreignPopulation);
 			}*/
-		int temp = 0;
+		/*int temp = 0;
 		for (int i = 1; i <= 10; i++) {
 			float populationAVG=0;
 			float foreignPopulation=0;
@@ -79,10 +81,14 @@ public class Visualisierung extends Application {
 			foreignPopulation=foreignPopulation/stepIndex;
 			Number percent=(foreignPopulation/populationAVG)*100;
 			data.getData().add(new XYChart.Data<Number, Number>(populationAVG,percent));
-		}
-		lineChart.getData().add(data);
-		root.getChildren().add(lineChart);
-		primaryStage.setTitle("Linechart of my Corona Projekt");
+		}*/
+		
+		// hier wird der Chart gesetuped also symbole weck und legende 
+		areaChart.setCreateSymbols(false);
+		
+		areaChart.getData().add(data);
+		root.getChildren().add(areaChart);
+		primaryStage.setTitle("Areachart of my Corona Projekt");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
@@ -94,6 +100,8 @@ public class Visualisierung extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
-	
+	public void setupChartoption() {
+		
+	}
 	
 }

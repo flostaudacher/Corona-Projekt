@@ -28,8 +28,6 @@ public class sqlConnection {
 			}
 			
 			ausgeben1();
-			
-			
 			res.close();
 			stt.close();
 			con.close();
