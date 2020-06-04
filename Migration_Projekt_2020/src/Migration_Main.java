@@ -5,6 +5,8 @@ public class Migration_Main {
 		Import imp = new Import();
 		Import.printArray();
 		sqlConnection.ausgeben();;
-		Visualisierung.main(args);
+		//Visualisierung.main(args);
+		
+		Visualisierung_Balken.main(args);
 	}
 }
