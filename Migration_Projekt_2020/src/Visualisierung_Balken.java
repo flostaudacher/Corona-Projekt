@@ -39,24 +39,9 @@ public class Visualisierung_Balken extends Application {
 		
 		Import.setup();
 		//Prepare XYChart.Series objects by setting data    
-		XYChart.Series<String, Number> series1 = new XYChart.Series<>();	
-		XYChart.Series<String, Number> series2 = new XYChart.Series<>();
-		XYChart.Series<String, Number> series3 = new XYChart.Series<>();
-		XYChart.Series<String, Number> series4 = new XYChart.Series<>();		// Erstellen der Verschiedenen Charts für die Jahre 
-		XYChart.Series<String, Number> series5 = new XYChart.Series<>();
-		XYChart.Series<String, Number> series6 = new XYChart.Series<>();
-		XYChart.Series<String, Number> series7 = new XYChart.Series<>();
-		XYChart.Series<String, Number> series8 = new XYChart.Series<>();
-		create(series1, 2012);
-		create(series2, 2013);
-		create(series3, 2014);
-		create(series4, 2015);
-		create(series5, 2016);
-		create(series6, 2017);
-		create(series7, 2018);
-		create(series8, 2019);
-		//Setting the data to bar chart       
-		barChart.getData().addAll(series1, series2, series3, series4, series5, series6, series7, series8);		//darstellen der Charts 
+		for (int i = 2012; i <= 2019; i++) {
+			barChart.getData().addAll(create(new XYChart.Series<String, Number>(),i));	
+		}
 		//Creating a Group object 
 		Group root = new Group(barChart);
 		//Creating a scene object
@@ -68,13 +53,14 @@ public class Visualisierung_Balken extends Application {
 		primaryStage.show();       
 		
 	}
-	private void create(Series<String, Number> s, int sy) {
+	private Series<String, Number> create(Series<String, Number> s, int sy) {
 		s.setName(""+sy);
 		getWertPerYear(sy);
 		for (int i = 0; i < 6 ;  i++) {
 			s.getData().add(new XYChart.Data<>("GROUP "+(i+1), WertArr[i])); //erstellen und eintragen der Daten
 		}
 		reset();
+		return s;
 	}
 	private void reset() {
 		for(int i = 0; i<WertArr.length; i++) {
@@ -93,7 +79,7 @@ public class Visualisierung_Balken extends Application {
 				for (int x  = 1; x < 6; x++ ) {
 					if (getWert(Import.arr[Rowc][5]) > groupArr[x-1] && getWert(Import.arr[Rowc][5]) < groupArr[x]) {
 						arr[x]++;
-						WertArr[x] = WertArr[x] + (getWert(Import.arr[Rowc][10])/getWert(Import.arr[Rowc][5]));
+						WertArr[x] = WertArr[x] + (getWert(Import.arr[Rowc][10]) / getWert(Import.arr[Rowc][5]));
 					}
 				}
 			}	
@@ -112,7 +98,4 @@ public class Visualisierung_Balken extends Application {
 		return Wertx;
 	}
 }
-
-
-
 
